@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список всех бронирований</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Все Бронирования</h1>
+
+    <div class="card">
+        <table style="width:100%; border-collapse: collapse; text-align: left;">
+            <thead>
+            <tr style="border-bottom: 2px solid var(--bg-light); color: var(--primary);">
+                <th style="padding: 15px;">Зритель</th>
+                <th style="padding: 15px;">Фильм</th>
+                <th style="padding: 15px;">Место</th>
+                <th style="padding: 15px;">Время</th>
+                <th style="padding: 15px;">Действие</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="b : ${bookings}" style="border-bottom: 1px solid #eee;">
+                <td style="padding: 15px;" th:text="${b.viewer != null ? b.viewer.name : 'Неизвестно'}">Имя</td>
+                <td style="padding: 15px;" th:text="${b.film != null ? b.film.title : 'Без названия'}">Фильм</td>
+                <td style="padding: 15px;">
+                    <span class="badge badge-info" th:text="${b.seat}">A1</span>
+                </td>
+                <td style="padding: 15px; color: #888; font-size: 0.9rem;"
+                    th:text="${#temporals.format(b.bookingTime, 'dd.MM.yyyy HH:mm')}">Дата</td>
+
+                <td style="padding: 15px;">
+                    <form th:action="@{/web/bookings/delete}" method="post" onsubmit="return confirm('Вы уверены?');">
+                        <input type="hidden" name="id" th:value="${b.id}" />
+                        <button type="submit" style="background: none; border: none; color: #ff4d4d; cursor: pointer; font-weight: bold;">
+                            Удалить
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div th:if="${#lists.isEmpty(bookings)}" style="padding: 40px; color: #999;">
+            Бронирований пока нет. Будьте первым!
+        </div>
+    </div>
+
+    <a href="/" class="link-all">← Вернуться к бронированию</a>
+</div>
+</body>
+</html>

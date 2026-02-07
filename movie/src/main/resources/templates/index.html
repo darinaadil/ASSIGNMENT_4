@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Купить Билет</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Купить Билет</h1>
+
+    <div class="card">
+        <h2>Наши <span>Кинотеатры</span></h2>
+        <div class="badge-container">
+            <div th:each="cinema, iter : ${cinemas}"
+                 th:class="'badge ' + (${iter.index % 3 == 0} ? 'badge-primary' : (${iter.index % 3 == 1} ? 'badge-info' : 'badge-success'))">
+                <span th:text="${cinema.name}">Cinema Name</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Забронируйте <span>место</span></h2>
+        <form action="/web/book" method="post">
+            <div class="form-group">
+                <label>Ваше Имя:</label>
+                <input type="text" name="viewerName" placeholder="Введите ваше имя" required>
+            </div>
+
+            <div class="form-group">
+                <label>Выберите Фильм:</label>
+                <select name="filmId">
+                    <option th:each="f : ${films}" th:value="${f.id}" th:text="${f.title}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Ряд и Место:</label>
+                <input type="text" name="seat" placeholder="Например: A-15" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Забронировать</button>
+            <a href="/web/bookings" class="link-all">→ Посмотреть все бронирования</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>

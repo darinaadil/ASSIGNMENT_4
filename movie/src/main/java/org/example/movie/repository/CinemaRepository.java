@@ -1,9 +1,9 @@
 package org.example.movie.repository;
 
-import org.example.movie.model.Film;
+import org.example.movie.model.Cinema;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MovieRepository extends JpaRepository<Film, Long> {
+public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 }

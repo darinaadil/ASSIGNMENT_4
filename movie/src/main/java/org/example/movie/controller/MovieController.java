@@ -1,6 +1,6 @@
 package org.example.movie.controller;
 
-import org.example.movie.model.Movie;
+import org.example.movie.model.Film;
 import org.example.movie.repository.MovieRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,12 +19,12 @@ public class MovieController {
     }
 
     @GetMapping
-    public List<Movie> getAllMovies() {
+    public List<Film> getAllMovies() {
         return movieRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Movie getMovieById(@PathVariable Long id) {
-        return movieRepository.findById(id);
+    public Film getMovieById(@PathVariable Long id) {
+        return movieRepository.findById(id).orElse(null);
     }
 }
